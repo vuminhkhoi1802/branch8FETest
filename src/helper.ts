@@ -12,7 +12,7 @@ export const addToWishList = (movie: any) => {
 export const statusWish = (movie: any) => {
     const dataWishListed = JSON.parse(localStorage.getItem("wishList") || "{}")
     const data = dataWishListed.find((i: { id: number }) => i.id === movie.id)
-    return data ? true : false
+    return data
 }
 
 

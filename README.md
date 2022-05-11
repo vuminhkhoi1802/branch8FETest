@@ -43,7 +43,7 @@ $ npm run start
         - Load 20 records after the Load More button is clicked
         - While loading the records, show Load More button in Loading state
         - If all records are fully displayed, the Load More button will disappear
-    - Implement "Back to Top" button **(Not Implemented)**
+    - Implement "Back to Top" button **(Implemented but not working properly at the moment)**
         - Page will automatically scroll to top of the Popular Movies list or search result list after clicking the button
 - Refactor components **(Please see the Folder Structure)**
 

@@ -5,7 +5,7 @@ export interface propsModal {
     setData: any
 }
 
-export interface Movives {
+export interface Movies {
     setData : any,
 }
 

@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Center, Flex, IconButton, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react';
 import axios from 'axios'
-import {
-    RiHeartFill,
-    RiHeartLine,
-    RiInboxLine,
-    RiSearchLine,
-    RiLoader2Fill,
-    RiArrowUpLine
-} from "react-icons/ri";
+import { RiArrowUpLine, RiHeartFill, RiHeartLine, RiInboxLine, RiLoader2Fill, RiSearchLine } from "react-icons/ri";
 import { apiKey, apiList, apiSearch } from '../constants/api';
-import { Movives } from '../interfaces';
+import { Movies } from '../interfaces';
 import { addToWishList, removeToWishList, statusWish } from '../helper';
 
 const dataWishList = localStorage.getItem("wishList")
 
-function Movie(props: Movives) {
+function Movie(props: Movies) {
     const [movies, setMovies] = useState<any[]>([])
     const [page, setPage] = useState<number>(1)
     const [loading, setLoading] = useState(false)
@@ -23,12 +16,16 @@ function Movie(props: Movives) {
     const { setData } = props;
     const [total, setTotal] = useState<number>(0)
 
-    useEffect(() => {
+    useEffect( () => {
         if (!dataWishList) localStorage.setItem("wishList", JSON.stringify([]))
-        getListMovies()
+        getMoviesList().catch(err => {
+            return {
+                message: err.message,
+            }
+        });
     }, [page])
 
-    const getListMovies = async () => {
+    const getMoviesList = async () => {
         setLoading(true)
         const values = await axios.get(`${apiList}?api_key=${apiKey}&language=en-US&page=${page}`)
         if (values.data?.results.length) {
@@ -47,8 +44,7 @@ function Movie(props: Movives) {
     };
 
     const statusWishData = (movie: any) => {
-        const status = statusWish(movie)
-        return status
+        return statusWish(movie)
     }
 
     const loadMore = async () => {
@@ -74,7 +70,7 @@ function Movie(props: Movives) {
                 setTotal(0)
             }
         } else {
-            await getListMovies()
+            await getMoviesList()
         }
         setLoading(false)
     }
